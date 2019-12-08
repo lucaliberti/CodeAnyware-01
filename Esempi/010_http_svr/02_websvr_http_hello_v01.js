@@ -88,7 +88,7 @@
     console.log(t , "New client connection accepted, client address: " + socket.remoteAddress )
 
     // Emitted once the socket is fully closed
-    socket.on("close", function() { 
+    socket.once("close", function() { 
                          console.log(new Date().toLocaleString() , "Client",socket.remoteAddress,"left")
                        });
 
