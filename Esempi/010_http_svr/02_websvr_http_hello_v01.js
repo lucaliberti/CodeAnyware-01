@@ -39,7 +39,7 @@
   // 
   // <net.Server> deriva da <EventEmitter>
   //     - Event: 'close'
-  //     - Event: 'connection'       Emitted when a new connection is made. 
+  //     - Event: 'connection'       Emitted when a new connection is made. (argomenti <socket> 
   //     - Event: 'error'
   //     - Event: 'listening'        Emitted when the server has been bound after calling server.listen().
 
@@ -85,14 +85,24 @@
 
   server.on("connection", function(socket) {
     let t=new Date().toLocaleString();
-    console.log(t , "New client connection accepted, client address: " + socket.remoteAddress )
+
+    let laddr=socket.localAddress;
+    let lport=socket.localPort;
+    let raddr=socket.remoteAddress;
+    let rport=socket.remotePort;
+    console.log(t , "New client connection accepted: " + 
+                     raddr+":"+rport+" --> "+laddr+":"+lport);
+                        
 
     // Emitted once the socket is fully closed
     socket.once("close", function() { 
-                         console.log(new Date().toLocaleString() , "Client",socket.remoteAddress,"left")
+                         let raddr=socket.remoteAddress;
+                         let rport=socket.remotePort;
+                         console.log(new Date().toLocaleString() , "Client "+ raddr+":"+rport+" left")
                        });
 
   })
+
 
 
 
